@@ -1,0 +1,44 @@
+type UserName = text;
+type User = 
+ record {
+   avatarimg: Avatarimg;
+   nickname: NickName;
+   uid: UID;
+   username: UserName;
+ };
+type UID = principal;
+type Time = int;
+type ShowUser = 
+ record {
+   avatarimg: Avatarimg;
+   bio: BIO;
+   nickname: NickName;
+   uid: UID;
+   username: UserName;
+ };
+type NickName = text;
+type Message = 
+ record {
+   content: Content;
+   sender: principal;
+   time: Time;
+ };
+type Content = text;
+type BIO = text;
+type Avatarimg = text;
+service : {
+  addUser: (text, text, text) -> (bool);
+  changeUserProfile: (text, text, text) -> (bool);
+  deleteUser: () -> (bool);
+  getPreviousMessage: (principal) -> (vec Message) query;
+  getPreviousMessage_mail: (principal) -> (vec Message) query;
+  getPrincipalByUserName: (text) -> (principal) query;
+  getShowUserProfileByPrincipal: () -> (ShowUser) query;
+  getShowUserProfileByUserName: (text) -> (ShowUser) query;
+  getUserNameByPrincipal: (principal) -> (text) query;
+  getUserProfile: () -> (User) query;
+  isUserExist: () -> (bool) query;
+  isUserNameUsed: (text) -> (bool) query;
+  sendMessage: (principal, text) -> (bool);
+  sendMessage_mail: (principal, text) -> (bool);
+}
